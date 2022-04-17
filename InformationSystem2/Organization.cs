@@ -81,6 +81,31 @@ namespace InformationSystem2
             xDoc.Save("departments.xml");
         }
 
+        internal void AddEmployeeToXml(Employee employee)
+        {
+            XDocument xdoc = XDocument.Load("employees.xml");
+            XElement? root = xdoc.Element("Employees");
+
+            if (root != null)
+            {
+                // добавляем новый элемент
+                root.Add(new XElement("Employee",
+                            new XElement("Id", employee.Id),
+                            new XElement("Фамилия", employee.SecondName),
+                            new XElement("Имя", employee.FirstName),
+                            new XElement("Возраст", employee.Age),
+                            new XElement("Зарплата", employee.Total),
+                            new XElement("Отдел", employee.IdDepartment)));
+
+                xdoc.Save("employees.xml");
+            }
+        }
+
+        internal void AddDepartmentToXml(Department department)
+        {
+
+        }
+
         /// <summary>
         /// Метод добавления нового отдела к списку всех отделов
         /// </summary>
