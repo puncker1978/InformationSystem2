@@ -81,31 +81,6 @@ namespace InformationSystem2
             xDoc.Save("departments.xml");
         }
 
-        internal void AddEmployeeToXml(Employee employee)
-        {
-            XDocument xdoc = XDocument.Load("employees.xml");
-            XElement? root = xdoc.Element("Employees");
-
-            if (root != null)
-            {
-                // добавляем новый элемент
-                root.Add(new XElement("Employee",
-                            new XElement("Id", employee.Id),
-                            new XElement("Фамилия", employee.SecondName),
-                            new XElement("Имя", employee.FirstName),
-                            new XElement("Возраст", employee.Age),
-                            new XElement("Зарплата", employee.Total),
-                            new XElement("Отдел", employee.IdDepartment)));
-
-                xdoc.Save("employees.xml");
-            }
-        }
-
-        internal void AddDepartmentToXml(Department department)
-        {
-
-        }
-
         /// <summary>
         /// Метод добавления нового отдела к списку всех отделов
         /// </summary>
@@ -135,6 +110,92 @@ namespace InformationSystem2
             employee.IdDepartment = department.Id;
             department.Contingent++;
         }
+        #endregion
+
+        #region Рабочие методы
+
+        /// <summary>
+        /// Метод добавления одного сотрудника в xml-файл
+        /// </summary>
+        /// <param name="employee">Добавляемый сотрудник</param>
+        internal void AddEmployeeToXml(Employee employee)
+        {
+            XDocument xdoc = XDocument.Load("employees.xml");
+            XElement root = xdoc.Element("Employees");
+
+            if (root != null)
+            {
+                // добавляем новый элемент
+                root.Add(new XElement("Employee",
+                            new XElement("Id", employee.Id),
+                            new XElement("Фамилия", employee.SecondName),
+                            new XElement("Имя", employee.FirstName),
+                            new XElement("Возраст", employee.Age),
+                            new XElement("Зарплата", employee.Total),
+                            new XElement("Отдел", employee.IdDepartment)));
+
+                xdoc.Save("employees.xml");
+            }
+        }
+
+        /// <summary>
+        /// Метод добавления одного отдела в xml-файл
+        /// </summary>
+        /// <param name="department"></param>
+        internal void AddDepartmentToXml(Department department)
+        {
+            XDocument xdoc = XDocument.Load("departments.xml");
+            XElement root = xdoc.Element("Departments");
+
+            if (root != null)
+            {
+                // добавляем новый элемент
+                root.Add(new XElement("Department",
+                            new XElement("Id", department.Id),
+                            new XElement("Фамилия", department.DepartmentName),
+                            new XElement("Имя", department.CreationDate),
+                            new XElement("Возраст", department.Contingent)));
+
+                xdoc.Save("departments.xml");
+            }
+        }
+
+
+        /// <summary>
+        /// Метод поиска отдела в xml-файле осуществляется по названию отдела,
+        /// поскольку название каждого отдела уникально.
+        /// При попытке удаления отдела, мы должны убедиться,
+        /// что отдел с таким названием существует в xml-файле.
+        /// При попытке создания нового отдела, мы должны убедиться,
+        /// что отдела с таким названием в xml-файле нет
+        /// </summary>
+        /// <param name="departmentName">Название отдела</param>
+        /// <returns>Если отдел найден, возвращает true. Если отдел не найден, возвращает false</returns>
+        internal bool FindDepartment(string departmentName)
+        {
+            bool result = false;
+            
+            XDocument xDoc = XDocument.Load("departments.xml");
+            XElement Departments = xDoc.Element("Departments");
+            foreach (XElement _department in Departments.Elements("Department"))
+            {
+                if (_department.Element("Отдел").Value == departmentName)
+                {
+                    result = true;
+                }
+            }
+            xDoc.Save("departments.xml");
+            return result;
+        }
+       
+        internal List<Employee> FindEmployee(Employee employee)
+        {
+            List<Employee> result = new List<Employee>();
+            XDocument xDoc = XDocument.Load("employees.xml");
+
+            return result;
+        }
+
         #endregion
     }
 }
