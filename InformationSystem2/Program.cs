@@ -51,7 +51,6 @@ namespace InformationSystem2
             }
             #endregion
 
-
             #region Сохраним тестовые данные о сотрудниках и отделах в xml-файлах
             Console.Clear();
             //Добавляем коллекцию сотрудников в xml-файл
@@ -63,6 +62,11 @@ namespace InformationSystem2
             Console.ReadKey();
 
             #endregion
+
+            Organization organization1 = new Organization();
+            organization1.FindDepartment("Отдел 0");
+
+            Console.ReadKey();
         }
     }
 }

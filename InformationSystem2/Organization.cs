@@ -192,7 +192,16 @@ namespace InformationSystem2
         {
             List<Employee> result = new List<Employee>();
             XDocument xDoc = XDocument.Load("employees.xml");
-
+            XElement Employees = xDoc.Element("Employees");
+            foreach(XElement _employee in Employees.Elements("Employee"))
+            {
+                if(_employee.Element("Фамилия").Value == employee.SecondName && 
+                    _employee.Element("Имя").Value == employee.FirstName)
+                {
+                    result.Add(employee);
+                }
+            }
+            xDoc.Save("employees.xml");
             return result;
         }
 
