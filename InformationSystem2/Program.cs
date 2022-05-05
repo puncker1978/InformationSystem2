@@ -17,56 +17,60 @@ namespace InformationSystem2
         static void Main(string[] args)
         {
             #region Заполнение xml-файлов тестовыми данными
-            //Создали экземпляр класса Organization
-            Organization organization = new Organization();
-
-            //Создали экземпляр класа Random
-            Random rnd = new Random();
-            int i, j = 0;
-
-            //Создадим, для примера, 20 сотрудников и
-            //4 отдела. И распределим по 5 сотрудников в
-            //каждый отел.
-            for (i = 0; i < 4; i++)
             {
-                //Инициализация экземпляра класса Department
-                Department department = new Department($"Отдел {KantorPairs(i, j)}",
-                    new DateTime(2021, rnd.Next(1, 12), rnd.Next(1, 28)).Date);
+                //Создали экземпляр класса Organization
+                Organization organization = new Organization();
 
-                //Добавляем инициализированный отдел в список всех отделов
-                organization.AddDepartmentToDepartments(department);
+                //Создали экземпляр класа Random
+                Random rnd = new Random();
+                int i, j = 0;
 
-                for (j = 0; j < 5; j++)
+                //Создадим, для примера, 20 сотрудников и
+                //4 отдела. И распределим по 5 сотрудников в
+                //каждый отел.
+                for (i = 0; i < 4; i++)
                 {
-                    //Инициализация экземпляра класса Employee
-                    Employee employee = new Employee($"Фамилия {rnd.Next(1, 10)}",
-                        $"Имя {rnd.Next(1, 10)}", rnd.Next(18, 70), rnd.Next(1, 3));
+                    //Инициализация экземпляра класса Department
+                    Department department = new Department($"Отдел {KantorPairs(i, j)}",
+                        new DateTime(2021, rnd.Next(1, 12), rnd.Next(1, 28)).Date);
 
-                    //Добавляем сотрудника в список всех сотрудников
-                    organization.AddEmployeeToEmployees(employee);
+                    //Добавляем инициализированный отдел в список всех отделов
+                    organization.AddDepartmentToDepartments(department);
 
-                    //Добавляем сотрудника в отдел
-                    organization.AddEmployeeToDepartment(department, employee);
+                    for (j = 0; j < 5; j++)
+                    {
+                        //Инициализация экземпляра класса Employee
+                        Employee employee = new Employee($"Фамилия {rnd.Next(1, 10)}",
+                            $"Имя {rnd.Next(1, 10)}", rnd.Next(18, 70), rnd.Next(1, 3));
+
+                        //Добавляем сотрудника в список всех сотрудников
+                        organization.AddEmployeeToEmployees(employee);
+
+                        //Добавляем сотрудника в отдел
+                        organization.AddEmployeeToDepartment(department, employee);
+                    }
                 }
+
+                //Сохраним тестовые данные о сотрудниках и отделах в xml-файлах
+                Console.Clear();
+                //Добавляем коллекцию сотрудников в xml-файл
+                organization.AddEmployeesToXml();
+
+                //Добавляем коллекцию отделов в xml-файл
+                organization.AddDepartmentsToXml();
+
+                Console.WriteLine("Тестовые файлы успешно зполнены");
+                Console.ReadKey();
+                Console.Clear();
             }
             #endregion
 
-            #region Сохраним тестовые данные о сотрудниках и отделах в xml-файлах
-            Console.Clear();
-            //Добавляем коллекцию сотрудников в xml-файл
-            organization.AddEmployeesToXml();
-
-            //Добавляем коллекцию отделов в xml-файл
-            organization.AddDepartmentsToXml();
-
-            Console.ReadKey();
-
-            #endregion
-
-            Organization organization1 = new Organization();
-            organization1.FindDepartment("Отдел 0");
-
-            Console.ReadKey();
+            {
+                Organization organization = new Organization();
+                organization.EmployeesFromXmlToCollection();
+                organization.DepartmentsFromXmlToCollection();
+                Console.ReadKey();
+            }
         }
     }
 }

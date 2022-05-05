@@ -160,6 +160,55 @@ namespace InformationSystem2
             }
         }
 
+        /// <summary>
+        /// Метод читает данные обо всех сотрудниках и передаёт их в коллекцию Employees
+        /// </summary>
+        internal void EmployeesFromXmlToCollection()
+        {
+            XDocument xDoc = XDocument.Load("employees.xml");
+            XElement _employees = xDoc.Element("Employees");
+            if(_employees != null)
+            {
+                foreach (XElement emp in _employees.Elements("Employee"))
+                {
+                    Employee employee = new Employee();
+                    employee.Id = emp.Element("Id").Value;
+                    employee.SecondName = emp.Element("Фамилия").Value;
+                    employee.FirstName = emp.Element("Имя").Value;
+                    employee.Age = int.Parse(emp.Element("Возраст").Value);
+                    employee.Total = int.Parse(emp.Element("Зарплата").Value);
+                    employee.Projects = int.Parse(emp.Element("Проекты").Value);
+                    employee.IdDepartment = emp.Element("Отдел").Value;
+                    Employees.Add(employee);
+                }
+            }
+        }
+
+        internal void DepartmentsFromXmlToCollection()
+        {
+            XDocument xDoc = XDocument.Load("departments.xml");
+            XElement _departments = xDoc.Element("Departments");
+            if (_departments != null)
+            {
+                foreach (XElement dep in _departments.Elements("Department"))
+                {
+                    Department department = new Department();
+                    department.Id = dep.Element("Id").Value;
+                    department.DepartmentName = dep.Element("Отдел").Value;
+                    department.CreationDate = DateTime.Parse(dep.Element("Создан").Value);
+                    department.Contingent = int.Parse(dep.Element("Контингент").Value);
+                    Departments.Add(department);
+                }
+            }
+        }
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// Метод поиска отдела в xml-файле осуществляется по названию отдела,
@@ -171,9 +220,9 @@ namespace InformationSystem2
         /// </summary>
         /// <param name="departmentName">Название отдела</param>
         /// <returns>Если отдел найден, возвращает true. Если отдел не найден, возвращает false</returns>
-        internal bool FindDepartment(string departmentName)
+        internal Department FindDepartment(string departmentName)
         {
-            bool result = false;
+            Department department = null;
             
             XDocument xDoc = XDocument.Load("departments.xml");
             XElement Departments = xDoc.Element("Departments");
@@ -181,11 +230,14 @@ namespace InformationSystem2
             {
                 if (_department.Element("Отдел").Value == departmentName)
                 {
-                    result = true;
+                    department.Id = _department.Element("Id").Value;
+                    department.DepartmentName = _department.Element("Отдел").Value;
+                    department.CreationDate = Convert.ToDateTime(_department.Element("Создан").Value);
+                    department.Contingent = Convert.ToInt32(_department.Element("Контингент").Value);
                 }
             }
             xDoc.Save("departments.xml");
-            return result;
+            return department;
         }
        
         internal List<Employee> FindEmployee(Employee employee)
