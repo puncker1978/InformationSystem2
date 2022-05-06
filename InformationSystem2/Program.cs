@@ -69,6 +69,11 @@ namespace InformationSystem2
                 Organization organization = new Organization();
                 organization.EmployeesFromXmlToCollection();
                 organization.DepartmentsFromXmlToCollection();
+
+                Console.WriteLine("Название отдела: ");
+                string departmentName = Console.ReadLine();
+                Department department = organization.FindDepartment(departmentName);
+                Console.WriteLine(department);
                 Console.ReadKey();
             }
         }
