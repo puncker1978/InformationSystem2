@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace InformationSystem2
 {
@@ -67,13 +68,23 @@ namespace InformationSystem2
 
             {
                 Organization organization = new Organization();
-                organization.EmployeesFromXmlToCollection();
                 organization.DepartmentsFromXmlToCollection();
 
-                Console.WriteLine("Название отдела: ");
+                Console.Write("Название отдела: ");
                 string departmentName = Console.ReadLine();
                 Department department = organization.FindDepartment(departmentName);
                 Console.WriteLine(department);
+                Console.ReadKey();
+                Console.Clear();
+            }
+            {
+                Organization organization = new Organization();
+                organization.EmployeesFromXmlToCollection();
+                Console.Write("Фамилия: ");
+                string secondName = Console.ReadLine();
+                Console.Write("Имя: ");
+                string firstName = Console.ReadLine();
+                List<Employee> employees = organization.FindEmployee(secondName, firstName); 
                 Console.ReadKey();
             }
         }

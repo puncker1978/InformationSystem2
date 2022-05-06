@@ -227,6 +227,30 @@ namespace InformationSystem2
             }
             return department;
         }
+
+        /// <summary>
+        /// Метод поиска сотрудника по фамилии и имени.
+        /// Поскольку таких сотрудников может быть больше 1, то всех сотрудников,
+        /// с такими фамилиями и именами кидаем в коллекцию
+        /// </summary>
+        /// <param name="secondName">Фамилия для поиска</param>
+        /// <param name="firstName">Имя для поиска</param>
+        /// <returns></returns>
+        internal List<Employee> FindEmployee(string secondName, string firstName)
+        {
+            Employee employee = null;
+            List<Employee> employees = new List<Employee>();
+
+            foreach(Employee emp in Employees)
+            {
+                if(emp.SecondName == secondName && emp.FirstName == firstName)
+                {
+                    employee = emp;
+                    employees.Add(employee);
+                }
+            }
+            return employees;
+        }
         #endregion
     }
 }
