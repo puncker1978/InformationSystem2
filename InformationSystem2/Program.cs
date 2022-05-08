@@ -66,7 +66,8 @@ namespace InformationSystem2
             }
             #endregion
 
-            {
+            #region Поиск отдела
+            {   
                 //Organization organization = new Organization();
                 //organization.DepartmentsFromXmlToCollection();
 
@@ -77,7 +78,10 @@ namespace InformationSystem2
                 //Console.ReadKey();
                 //Console.Clear();
             }
-            {
+            #endregion
+
+            #region Поиск сотрудника
+            {   
                 //Organization organization = new Organization();
                 //organization.EmployeesFromXmlToCollection();
                 //Console.Write("Фамилия: ");
@@ -88,7 +92,10 @@ namespace InformationSystem2
                 //Console.ReadKey();
                 //Console.Clear();
             }
-            {
+            #endregion
+
+            #region Добавление нового отдела
+            {   
                 Organization organization = new Organization();
                 organization.DepartmentsFromXmlToCollection();
 
@@ -103,7 +110,10 @@ namespace InformationSystem2
                 Console.ReadKey();
                 Console.Clear();
             }
-            {
+            #endregion
+
+            #region Добавление нового сотрудника
+            {   
                 Organization organization = new Organization();
 
                 Console.WriteLine("Введите данные нового сотрудника:");
@@ -131,6 +141,22 @@ namespace InformationSystem2
                 //Увеличиваем контингент того отдела, в который новый сотрудник был добавлен
                 organization.EditContingentDepartmentXml(department, "add");
             }
+            #endregion
+
+            #region Редактирование отдела (переименование)
+            {
+                Organization organzation = new Organization();
+                Console.Write("Введите название отдела, который необходимо переименовать: ");
+                string oldDepartmentName = Console.ReadLine();
+                organzation.DepartmentsFromXmlToCollection();
+                if(organzation.FindDepartment(oldDepartmentName) != null)
+                {
+                    Console.Write("Введите новое название отдела: ");
+                    string newDepartmentName = Console.ReadLine();
+                    organzation.RenameDepartmentXml(oldDepartmentName, newDepartmentName);
+                }
+            }
+            #endregion
         }
     }
 }

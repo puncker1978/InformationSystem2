@@ -291,19 +291,27 @@ namespace InformationSystem2
             }
         }
 
-        internal void EditDepartmentXml(string oldDepartmentName, string newDepartmentName)
+        /// <summary>
+        /// Метод переименования отдела в xml-файле
+        /// </summary>
+        /// <param name="oldDepartmentName">Старое название отдела</param>
+        /// <param name="newDepartmentName">Новое название отдела</param>
+        internal void RenameDepartmentXml(string oldDepartmentName, string newDepartmentName)
         {
             XDocument xDoc = XDocument.Load("departments.xml");
             XElement root = xDoc.Element("Departments");
 
             if (root != null)
             {
-                foreach (XElement element in root.Elements("Department"))
+                foreach (XElement _department in root.Elements("Department"))
                 {
-
+                    if(_department.Element("Отдел").Value == oldDepartmentName)
+                    {
+                        _department.Element("Отдел").Value = newDepartmentName;
+                        break;
+                    }
                 }
-
-                xDoc.Save("people.xml");
+                xDoc.Save("departments.xml");
             }
         }
         #endregion
