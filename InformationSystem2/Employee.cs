@@ -152,25 +152,6 @@ namespace InformationSystem2
             this.Projects = projects;
             this.Total = total;
         }
-
-        /// <summary>
-        /// Конструктор для создания экземпляра класса Employee по полям:
-        /// Фамилия, имя, возраст, отдел, число проектов
-        /// </summary>
-        /// <param name="secondName"></param>
-        /// <param name="firstName"></param>
-        /// <param name="age"></param>
-        /// <param name="id"></param>
-        /// <param name="projects"></param>
-        //public Employee(string secondName, string firstName, int age, Guid idDepartment, int projects)
-        //{
-        //    this.SecondName = secondName;
-        //    this.FirstName = firstName;
-        //    this.Age = age;
-        //    this.IdDepartment = idDepartment;
-        //    this.Projects = projects;
-        //    this.Total = salary * projects;
-        //}
         #endregion
 
         #region Методы
