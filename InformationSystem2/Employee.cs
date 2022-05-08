@@ -17,7 +17,7 @@ namespace InformationSystem2
         /// <summary>
         /// Уникальный идентификационный номер сотрудника
         /// </summary>
-        private string id;
+        private Guid id;
 
         /// <summary>
         /// Фамилия сотрудника
@@ -37,7 +37,7 @@ namespace InformationSystem2
         /// <summary>
         /// Номер отдела, к которому прикреплён сотрудник
         /// </summary>
-        private string idDepartment;
+        private Guid idDepartment;
 
         /// <summary>
         /// Количество проектов, закрепленных за сотрудником
@@ -54,7 +54,7 @@ namespace InformationSystem2
         /// <summary>
         /// Уникальный идентификационный номер сотрудника
         /// </summary>
-        internal string Id { get => id; set => id = value; }
+        internal Guid Id { get => id; set => id = value; }
 
         /// <summary>
         /// Фамилия сотрудника
@@ -74,7 +74,7 @@ namespace InformationSystem2
         /// <summary>
         /// Номер отдела, к которому прикреплён сотрудник
         /// </summary>
-        internal string IdDepartment { get => idDepartment; set => idDepartment = value; }
+        internal Guid IdDepartment { get => idDepartment; set => idDepartment = value; }
 
         /// <summary>
         /// Количество проектов, закрепленных за сотрудником
@@ -109,7 +109,7 @@ namespace InformationSystem2
         /// <param name="projects">Количество проектов, закрепленных за сотрудником</param>
         internal Employee(string secondName, string firstName, int age, int projects)
         {
-            this.Id = Guid.NewGuid().ToString();
+            this.Id = Guid.NewGuid();
             this.SecondName = secondName;
             this.FirstName = firstName;
             this.Age = age;
@@ -144,14 +144,33 @@ namespace InformationSystem2
                           int projects,
                           int total)
         {
-            this.Id = id;
+            this.Id = Guid.Parse(id);
             this.SecondName = secondName;
             this.FirstName = firstName;
             this.Age = age;
-            this.IdDepartment = idDepartment;
+            this.IdDepartment = Guid.Parse(idDepartment);
             this.Projects = projects;
             this.Total = total;
         }
+
+        /// <summary>
+        /// Конструктор для создания экземпляра класса Employee по полям:
+        /// Фамилия, имя, возраст, отдел, число проектов
+        /// </summary>
+        /// <param name="secondName"></param>
+        /// <param name="firstName"></param>
+        /// <param name="age"></param>
+        /// <param name="id"></param>
+        /// <param name="projects"></param>
+        //public Employee(string secondName, string firstName, int age, Guid idDepartment, int projects)
+        //{
+        //    this.SecondName = secondName;
+        //    this.FirstName = firstName;
+        //    this.Age = age;
+        //    this.IdDepartment = idDepartment;
+        //    this.Projects = projects;
+        //    this.Total = salary * projects;
+        //}
         #endregion
 
         #region Методы

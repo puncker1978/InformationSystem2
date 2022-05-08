@@ -67,25 +67,69 @@ namespace InformationSystem2
             #endregion
 
             {
+                //Organization organization = new Organization();
+                //organization.DepartmentsFromXmlToCollection();
+
+                //Console.Write("Название отдела: ");
+                //string departmentName = Console.ReadLine();
+                //Department department = organization.FindDepartment(departmentName);
+                //Console.WriteLine(department);
+                //Console.ReadKey();
+                //Console.Clear();
+            }
+            {
+                //Organization organization = new Organization();
+                //organization.EmployeesFromXmlToCollection();
+                //Console.Write("Фамилия: ");
+                //string secondName = Console.ReadLine();
+                //Console.Write("Имя: ");
+                //string firstName = Console.ReadLine();
+                //List<Employee> employees = organization.FindEmployee(secondName, firstName); 
+                //Console.ReadKey();
+                //Console.Clear();
+            }
+            {
                 Organization organization = new Organization();
                 organization.DepartmentsFromXmlToCollection();
 
+                Console.WriteLine("Введите данные нового отдела:");
                 Console.Write("Название отдела: ");
                 string departmentName = Console.ReadLine();
-                Department department = organization.FindDepartment(departmentName);
-                Console.WriteLine(department);
+                Guid id = Guid.NewGuid();
+                DateTime creationDate = DateTime.Now;
+                int contingent = 0;
+                Department department = new Department(id, departmentName, creationDate, contingent);
+                organization.AddDepartmentToXml(department);
                 Console.ReadKey();
                 Console.Clear();
             }
             {
                 Organization organization = new Organization();
-                organization.EmployeesFromXmlToCollection();
+
+                Console.WriteLine("Введите данные нового сотрудника:");
                 Console.Write("Фамилия: ");
                 string secondName = Console.ReadLine();
                 Console.Write("Имя: ");
                 string firstName = Console.ReadLine();
-                List<Employee> employees = organization.FindEmployee(secondName, firstName); 
-                Console.ReadKey();
+                Console.Write("Возраст: ");
+                int age = int.Parse(Console.ReadLine());
+                Console.Write("Количество проектов: ");
+                int projects = int.Parse(Console.ReadLine());
+                Console.Write("Отдел: ");
+                string departmentName = Console.ReadLine();
+
+                //Находим отдел, в который хотим добавить нового сотрудника
+                organization.DepartmentsFromXmlToCollection();
+                Department department = organization.FindDepartment(departmentName);
+
+                //Создаём нового сотрудника
+                Employee employee = new Employee(secondName, firstName, age, projects);
+                //Добавляем нового сотрудника в отдел
+                organization.AddEmployeeToDepartment(department, employee);
+                //Сохранияем сведения о новом сотруднике в xml-файле
+                organization.AddEmployeeToXml(employee);
+                
+
             }
         }
     }

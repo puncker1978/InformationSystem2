@@ -10,7 +10,7 @@ namespace InformationSystem2
         /// <summary>
         /// Уникальный идентификационный номер отдела
         /// </summary>
-        private string id;
+        private Guid id;
 
         /// <summary>
         /// Название отдела
@@ -32,7 +32,7 @@ namespace InformationSystem2
         /// <summary>
         /// Уникальный идентификационный номер отдела
         /// </summary>
-        internal string Id { get => id; set => id = value; }
+        internal Guid Id { get => id; set => id = value; }
 
         /// <summary>
         /// Название отдела
@@ -66,7 +66,7 @@ namespace InformationSystem2
         /// <param name="creationDate">Дата создания отдела</param>
         internal Department(string departmentName, DateTime creationDate)
         {
-            this.Id = Guid.NewGuid().ToString();
+            this.Id = Guid.NewGuid();
             this.DepartmentName = departmentName;
             this.CreationDate = creationDate.Date;
         }
@@ -80,10 +80,19 @@ namespace InformationSystem2
         /// <param name="contingent"></param>
         internal Department(string id, string departmentName, string creationDate, string contingent)
         {
-            this.Id = id;
+            this.Id = Guid.Parse(id);
             this.DepartmentName = departmentName;
             this.CreationDate = DateTime.Parse(creationDate);
             this.Contingent = int.Parse(contingent);
+        }
+
+
+        internal Department(Guid id, string departmentName, DateTime creationDate, int contingent)
+        {
+            this.Id = id;
+            this.DepartmentName = departmentName;
+            this.CreationDate = creationDate;
+            this.Contingent = contingent;
         }
         #endregion
 

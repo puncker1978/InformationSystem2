@@ -152,9 +152,9 @@ namespace InformationSystem2
                 // добавляем новый элемент
                 root.Add(new XElement("Department",
                             new XElement("Id", department.Id),
-                            new XElement("Фамилия", department.DepartmentName),
-                            new XElement("Имя", department.CreationDate),
-                            new XElement("Возраст", department.Contingent)));
+                            new XElement("Отдел", department.DepartmentName),
+                            new XElement("Создан", department.CreationDate),
+                            new XElement("Контингент", department.Contingent)));
 
                 xdoc.Save("departments.xml");
             }
@@ -171,14 +171,16 @@ namespace InformationSystem2
             {
                 foreach (XElement emp in _employees.Elements("Employee"))
                 {
-                    Employee employee = new Employee();
-                    employee.Id = emp.Element("Id").Value;
-                    employee.SecondName = emp.Element("Фамилия").Value;
-                    employee.FirstName = emp.Element("Имя").Value;
-                    employee.Age = int.Parse(emp.Element("Возраст").Value);
-                    employee.Total = int.Parse(emp.Element("Зарплата").Value);
-                    employee.Projects = int.Parse(emp.Element("Проекты").Value);
-                    employee.IdDepartment = emp.Element("Отдел").Value;
+                    Employee employee = new Employee
+                    {
+                        Id = Guid.Parse(emp.Element("Id").Value),
+                        SecondName = emp.Element("Фамилия").Value,
+                        FirstName = emp.Element("Имя").Value,
+                        Age = int.Parse(emp.Element("Возраст").Value),
+                        Total = int.Parse(emp.Element("Зарплата").Value),
+                        Projects = int.Parse(emp.Element("Проекты").Value),
+                        IdDepartment = Guid.Parse(emp.Element("Отдел").Value)
+                    };
                     Employees.Add(employee);
                 }
             }
@@ -195,11 +197,13 @@ namespace InformationSystem2
             {
                 foreach (XElement dep in _departments.Elements("Department"))
                 {
-                    Department department = new Department();
-                    department.Id = dep.Element("Id").Value;
-                    department.DepartmentName = dep.Element("Отдел").Value;
-                    department.CreationDate = DateTime.Parse(dep.Element("Создан").Value);
-                    department.Contingent = int.Parse(dep.Element("Контингент").Value);
+                    Department department = new Department
+                    {
+                        Id = Guid.Parse(dep.Element("Id").Value),
+                        DepartmentName = dep.Element("Отдел").Value,
+                        CreationDate = DateTime.Parse(dep.Element("Создан").Value),
+                        Contingent = int.Parse(dep.Element("Контингент").Value)
+                    };
                     Departments.Add(department);
                 }
             }
@@ -238,19 +242,19 @@ namespace InformationSystem2
         /// <returns></returns>
         internal List<Employee> FindEmployee(string secondName, string firstName)
         {
-            Employee employee = null;
             List<Employee> employees = new List<Employee>();
 
             foreach(Employee emp in Employees)
             {
                 if(emp.SecondName == secondName && emp.FirstName == firstName)
                 {
-                    employee = emp;
-                    employees.Add(employee);
+                    //Employee employee = emp;
+                    employees.Add(emp);
                 }
             }
             return employees;
         }
+
         #endregion
     }
 }
