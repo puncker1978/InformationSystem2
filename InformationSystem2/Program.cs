@@ -129,7 +129,7 @@ namespace InformationSystem2
                 //Сохранияем сведения о новом сотруднике в xml-файле
                 organization.AddEmployeeToXml(employee);
                 //Увеличиваем контингент того отдела, в который новый сотрудник был добавлен
-                organization.EditDepartmentXml(department, "add");
+                organization.EditContingentDepartmentXml(department, "add");
             }
         }
     }

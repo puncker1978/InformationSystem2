@@ -255,7 +255,14 @@ namespace InformationSystem2
             return employees;
         }
 
-        internal void EditDepartmentXml(Department department, string addOrDel)
+        /// <summary>
+        /// Метод меняет контингент отдела в xml-файле.
+        /// При добавлении сотрудника, контингент увеличивается на единицу
+        /// При удалении сотрудника, контингент уменьшается на единицу
+        /// </summary>
+        /// <param name="department">Отдел</param>
+        /// <param name="addOrDel">Параметр флаг(add или del)</param>
+        internal void EditContingentDepartmentXml(Department department, string addOrDel)
         {
             XDocument xDoc = XDocument.Load("departments.xml");
             XElement root = xDoc.Element("Departments");
