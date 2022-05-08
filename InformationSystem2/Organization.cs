@@ -255,6 +255,50 @@ namespace InformationSystem2
             return employees;
         }
 
+        internal void EditDepartmentXml(Department department, string addOrDel)
+        {
+            XDocument xDoc = XDocument.Load("departments.xml");
+            XElement root = xDoc.Element("Departments");
+
+            if (root != null)
+            {
+                foreach (XElement _department in root.Elements("Department"))
+                {
+                    if (department.DepartmentName == _department.Element("Отдел").Value)
+                    {
+                        if (addOrDel == "add")
+                        {
+                            string str = (int.Parse(_department.Element("Контингент").Value) + 1).ToString();
+                            _department.Element("Контингент").Value = str;
+                            break;
+                        }
+                        if (addOrDel == "del")
+                        {
+                            string str = (int.Parse(_department.Element("Контингент").Value) - 1).ToString();
+                            _department.Element("Контингент").Value = str;
+                            break;
+                        }
+                    }
+                }
+                xDoc.Save("departments.xml");
+            }
+        }
+
+        internal void EditDepartmentXml(string oldDepartmentName, string newDepartmentName)
+        {
+            XDocument xDoc = XDocument.Load("departments.xml");
+            XElement root = xDoc.Element("Departments");
+
+            if (root != null)
+            {
+                foreach (XElement element in root.Elements("Department"))
+                {
+
+                }
+
+                xDoc.Save("people.xml");
+            }
+        }
         #endregion
     }
 }
