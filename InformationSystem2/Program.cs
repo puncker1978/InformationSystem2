@@ -60,37 +60,58 @@ namespace InformationSystem2
                 //Добавляем коллекцию отделов в xml-файл
                 organization.AddDepartmentsToXml();
 
-                Console.WriteLine("Тестовые файлы успешно зполнены");
+                Console.WriteLine("Тестовые файлы успешно заполнены");
+                Console.Write("Для продолжения нажмите Enter");
                 Console.ReadKey();
                 Console.Clear();
             }
             #endregion
 
             #region Поиск отдела
-            {   
-                //Organization organization = new Organization();
-                //organization.DepartmentsFromXmlToCollection();
+            {
+                Organization organization = new Organization();
+                organization.DepartmentsFromXmlToCollection();
 
-                //Console.Write("Название отдела: ");
-                //string departmentName = Console.ReadLine();
-                //Department department = organization.FindDepartment(departmentName);
-                //Console.WriteLine(department);
-                //Console.ReadKey();
-                //Console.Clear();
+                Console.Write("Название отдела: ");
+                string departmentName = Console.ReadLine();
+                Department department = organization.FindDepartment(departmentName);
+                if (department != null)
+                {
+                    Console.WriteLine(department);
+                }
+                else
+                {
+                    Console.WriteLine($"Отдел \"{departmentName}\" не найден");
+                }
+                Console.ReadKey();
+                Console.Clear();
             }
             #endregion
 
             #region Поиск сотрудника
-            {   
-                //Organization organization = new Organization();
-                //organization.EmployeesFromXmlToCollection();
-                //Console.Write("Фамилия: ");
-                //string secondName = Console.ReadLine();
-                //Console.Write("Имя: ");
-                //string firstName = Console.ReadLine();
-                //List<Employee> employees = organization.FindEmployee(secondName, firstName); 
-                //Console.ReadKey();
-                //Console.Clear();
+            {
+                Organization organization = new Organization();
+                organization.EmployeesFromXmlToCollection();
+                Console.WriteLine("Поиск сотрудника по фамилии и имени");
+                Console.Write("Фамилия: ");
+                string secondName = Console.ReadLine();
+                Console.Write("Имя: ");
+                string firstName = Console.ReadLine();
+                List<Employee> employees = organization.FindEmployee(secondName, firstName);
+                if(employees != null)
+                {
+                    Console.WriteLine($"Найденo сотрудников: {employees.Count}");
+                    foreach(Employee employee in employees)
+                    {
+                        Console.WriteLine(employee);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Сотрудник {secondName} {firstName} не найден");
+                }
+                Console.ReadKey();
+                Console.Clear();
             }
             #endregion
 
@@ -102,11 +123,18 @@ namespace InformationSystem2
                 Console.WriteLine("Введите данные нового отдела:");
                 Console.Write("Название отдела: ");
                 string departmentName = Console.ReadLine();
-                Guid id = Guid.NewGuid();
-                DateTime creationDate = DateTime.Now;
-                int contingent = 0;
-                Department department = new Department(id, departmentName, creationDate, contingent);
-                organization.AddDepartmentToXml(department);
+                if (organization.FindDepartment(departmentName) == null)
+                {
+                    Guid id = Guid.NewGuid();
+                    DateTime creationDate = DateTime.Now;
+                    int contingent = 0;
+                    Department department = new Department(id, departmentName, creationDate, contingent);
+                    organization.AddDepartmentToXml(department);
+                }
+                else
+                {
+                    Console.WriteLine($"Отдел \"{departmentName}\" уже существует");
+                }
                 Console.ReadKey();
                 Console.Clear();
             }
