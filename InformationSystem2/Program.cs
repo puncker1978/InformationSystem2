@@ -71,7 +71,7 @@ namespace InformationSystem2
             {
                 Organization organization = new Organization();
                 organization.DepartmentsFromXmlToCollection();
-
+                Console.WriteLine("Поиск отдела");
                 Console.Write("Название отдела: ");
                 string departmentName = Console.ReadLine();
                 Department department = organization.FindDepartment(departmentName);
@@ -97,12 +97,16 @@ namespace InformationSystem2
                 string secondName = Console.ReadLine();
                 Console.Write("Имя: ");
                 string firstName = Console.ReadLine();
+                
+                //Поскольку могут быть разные сотрудники с одинаковыми фамилиями и именоми,
+                //то будем создавать список всех таких сотрудников
                 List<Employee> employees = organization.FindEmployee(secondName, firstName);
                 if(employees != null)
                 {
                     Console.WriteLine($"Найденo сотрудников: {employees.Count}");
                     foreach(Employee employee in employees)
                     {
+                        //Выводим список всех найденных сотрудников на экран консоли
                         Console.WriteLine(employee);
                     }
                 }
@@ -130,6 +134,7 @@ namespace InformationSystem2
                     int contingent = 0;
                     Department department = new Department(id, departmentName, creationDate, contingent);
                     organization.AddDepartmentToXml(department);
+                    Console.WriteLine($"Отдел {departmentName} успешно создан");
                 }
                 else
                 {
@@ -145,29 +150,43 @@ namespace InformationSystem2
                 Organization organization = new Organization();
 
                 Console.WriteLine("Введите данные нового сотрудника:");
-                Console.Write("Фамилия: ");
-                string secondName = Console.ReadLine();
-                Console.Write("Имя: ");
-                string firstName = Console.ReadLine();
-                Console.Write("Возраст: ");
-                int age = int.Parse(Console.ReadLine());
-                Console.Write("Количество проектов: ");
-                int projects = int.Parse(Console.ReadLine());
                 Console.Write("Отдел: ");
                 string departmentName = Console.ReadLine();
-
                 //Находим отдел, в который хотим добавить нового сотрудника
                 organization.DepartmentsFromXmlToCollection();
                 Department department = organization.FindDepartment(departmentName);
+                //Проверяем, существует ли отдел с введенным названием
+                if (department != null)
+                {
+                    Console.Write("Фамилия: ");
+                    string secondName = Console.ReadLine();
+                    Console.Write("Имя: ");
+                    string firstName = Console.ReadLine();
+                    Console.Write("Возраст: ");
+                    int age = int.Parse(Console.ReadLine());
+                    Console.Write("Количество проектов: ");
+                    int projects = int.Parse(Console.ReadLine());
+                    
+                    //Создаём нового сотрудника
+                    Employee employee = new Employee(secondName, firstName, age, projects);
+                    
+                    //Добавляем нового сотрудника в отдел
+                    organization.AddEmployeeToDepartment(department, employee);
+                    
+                    //Сохранияем сведения о новом сотруднике в xml-файле
+                    organization.AddEmployeeToXml(employee);
+                    
+                    //Увеличиваем контингент того отдела, в который новый сотрудник был добавлен, на единицу
+                    organization.EditContingentDepartmentXml(department, "add");
 
-                //Создаём нового сотрудника
-                Employee employee = new Employee(secondName, firstName, age, projects);
-                //Добавляем нового сотрудника в отдел
-                organization.AddEmployeeToDepartment(department, employee);
-                //Сохранияем сведения о новом сотруднике в xml-файле
-                organization.AddEmployeeToXml(employee);
-                //Увеличиваем контингент того отдела, в который новый сотрудник был добавлен
-                organization.EditContingentDepartmentXml(department, "add");
+                    Console.WriteLine($"Сотрудник {secondName} {firstName} успешно добавлен в отдел {departmentName}");
+                }
+                else
+                {
+                    Console.WriteLine($"Отдела с названием \"{departmentName}\" не существует");
+                }
+                Console.ReadKey();
+                Console.Clear();
             }
             #endregion
 
@@ -182,8 +201,19 @@ namespace InformationSystem2
                     Console.Write("Введите новое название отдела: ");
                     string newDepartmentName = Console.ReadLine();
                     organzation.RenameDepartmentXml(oldDepartmentName, newDepartmentName);
+                    Console.WriteLine($"Отдел \"{oldDepartmentName}\" переименован в \"{newDepartmentName}\"");
                 }
+                else
+                {
+                    Console.WriteLine($"Отдел \"{oldDepartmentName}\" не найден");
+                }
+                Console.ReadKey();
+                Console.Clear();
             }
+            #endregion
+
+            #region Редактирование сотрудника (изменение числа проектов)
+            
             #endregion
         }
     }

@@ -161,13 +161,13 @@ namespace InformationSystem2
         /// <returns>Сотрудник</returns>
         public override string ToString()
         {
-            return $"№ Сотрудника\t{this.id}\n" +
-                $"Фамилия\t{this.SecondName}\n" +
-                $"Имя\t{this.FirstName}\n" +
-                $"Возраст\t{this.Age}\n" +
-                $"Количество проектов\t{this.Projects}\n" +
-                $"Заработная плата\t{this.Total}\n" +
-                $"№ Отдела\t{this.IdDepartment}";
+            return $"№ Сотрудника:\t{this.id}\n" +
+                $"Фамилия:\t{this.SecondName}\n" +
+                $"Имя:\t{this.FirstName}\n" +
+                $"Возраст:\t{this.Age}\n" +
+                $"Количество проектов:\t{this.Projects}\n" +
+                $"Заработная плата:\t{this.Total}\n" +
+                $"№ Отдела:\t{this.IdDepartment}";
         }
         #endregion
     }
