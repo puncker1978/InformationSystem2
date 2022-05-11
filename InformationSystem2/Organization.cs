@@ -248,11 +248,28 @@ namespace InformationSystem2
             {
                 if(emp.SecondName == secondName && emp.FirstName == firstName)
                 {
-                    //Employee employee = emp;
                     employees.Add(emp);
                 }
             }
             return employees;
+        }
+
+        internal void EditEmployee(Employee employee, int projects)
+        {
+            XDocument xDoc = XDocument.Load("employees.xml");
+            XElement root = xDoc.Element("Employees");
+            if (root != null)
+            {
+                foreach (XElement _employee in root.Elements("Employee"))
+                {
+                    if(_employee.Element("Id").Value == employee.Id.ToString())
+                    {
+                        _employee.Element("Проекты").Value = projects.ToString();
+                        _employee.Element("Зарплата").Value = employee.Total.ToString();
+                    }
+                }
+            }
+            xDoc.Save("employees.xml");
         }
 
         /// <summary>
