@@ -85,7 +85,6 @@ namespace InformationSystem2
         /// Итоговая заработная плата. Расчитывается как произведение количества проектов на ставку заработной платы.
         /// </summary>
         internal int Total { get => total; set => total = value; }
-
         #endregion
 
         #region Конструкторы

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
@@ -254,18 +255,26 @@ namespace InformationSystem2
             return employees;
         }
 
-        internal void EditEmployee(Employee employee, int projects)
+        /// <summary>
+        /// Метод редактирования сотрудника (меняем число проектов)
+        /// </summary>
+        /// <param name="employee">Сотрудник</param>
+        /// <param name="projects">Новое число проектов</param>
+        internal void EditEmployee(Employee employee, int newProjects)
         {
             XDocument xDoc = XDocument.Load("employees.xml");
             XElement root = xDoc.Element("Employees");
+
             if (root != null)
             {
                 foreach (XElement _employee in root.Elements("Employee"))
                 {
                     if(_employee.Element("Id").Value == employee.Id.ToString())
                     {
-                        _employee.Element("Проекты").Value = projects.ToString();
-                        _employee.Element("Зарплата").Value = employee.Total.ToString();
+                        _employee.Element("Проекты").Value = newProjects.ToString();
+                        Employee emp = new Employee(newProjects);
+                        _employee.Element("Зарплата").Value = emp.Total.ToString();
+                        break;
                     }
                 }
             }

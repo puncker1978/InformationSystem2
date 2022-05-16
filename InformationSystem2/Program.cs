@@ -67,7 +67,7 @@ namespace InformationSystem2
             }
             #endregion
 
-            //#region Поиск отдела
+            #region Поиск отдела
             //{
             //    Organization organization = new Organization();
             //    organization.DepartmentsFromXmlToCollection();
@@ -86,9 +86,9 @@ namespace InformationSystem2
             //    Console.ReadKey();
             //    Console.Clear();
             //}
-            //#endregion
+            #endregion
 
-            //#region Поиск сотрудника
+            #region Поиск сотрудника
             //{
             //    Organization organization = new Organization();
             //    organization.EmployeesFromXmlToCollection();
@@ -117,9 +117,9 @@ namespace InformationSystem2
             //    Console.ReadKey();
             //    Console.Clear();
             //}
-            //#endregion
+            #endregion
 
-            //#region Добавление нового отдела
+            #region Добавление нового отдела
             //{   
             //    Organization organization = new Organization();
             //    organization.DepartmentsFromXmlToCollection();
@@ -143,9 +143,9 @@ namespace InformationSystem2
             //    Console.ReadKey();
             //    Console.Clear();
             //}
-            //#endregion
+            #endregion
 
-            //#region Добавление нового сотрудника
+            #region Добавление нового сотрудника
             //{   
             //    Organization organization = new Organization();
 
@@ -188,9 +188,9 @@ namespace InformationSystem2
             //    Console.ReadKey();
             //    Console.Clear();
             //}
-            //#endregion
+            #endregion
 
-            //#region Редактирование отдела (переименование)
+            #region Редактирование отдела (переименование)
             //{
             //    Organization organzation = new Organization();
             //    Console.Write("Введите название отдела, который необходимо переименовать: ");
@@ -210,7 +210,7 @@ namespace InformationSystem2
             //    Console.ReadKey();
             //    Console.Clear();
             //}
-            //#endregion
+            #endregion
 
             #region Редактирование сотрудника (изменение числа проектов)
             {
@@ -224,7 +224,7 @@ namespace InformationSystem2
                 //Читаем из xml-файла список всех сотрудников
                 organzation.EmployeesFromXmlToCollection();
 
-                //Фрпмируем список всех сотрудников, удовлетворяющих условиям поиска (таких может оказаться несколько)
+                //Формируем список всех сотрудников, удовлетворяющих условиям поиска (таких может оказаться несколько)
                 List<Employee> employees = organzation.FindEmployee(secondName, firstName);
 
                 //Количество сотрудников, удовлетворяющих условиям поиска
@@ -232,28 +232,28 @@ namespace InformationSystem2
 
                 if (employees != null)
                 {
-                    for(int i = 0; i < count; i++)
+                    for (int i = 0; i < count; i++)
                     {
                         //Выводим на экран сведения обо всех найденных сотрудниках
-                        Console.WriteLine($"{i}\n{employees[i]}\n");
+                        Console.WriteLine($"№ {i}\n{employees[i]}\n");
                     }
-                    Console.Write("Номер сотрудника для изменения числа проектов:");
+                    Console.Write("Номер сотрудника для изменения числа проектов: ");
                     int number = int.Parse(Console.ReadLine());
 
                     //Выбранный сотрудник
                     Employee employee = employees[number];
-                    
+
                     //Изменяем число проектов
                     Console.Write("Новое число проектов: ");
 
                     int newProjects = int.Parse(Console.ReadLine());
-                    employee = new Employee(newProjects);
                     organzation.EditEmployee(employee, newProjects);
                 }
                 else
                 {
                     Console.WriteLine($"Сотрудник с фамилией {secondName} и именем {firstName} не найден");
                 }
+                Console.WriteLine("Количество проектов успешно изменено");
                 Console.ReadKey();
                 Console.Clear();
             }
