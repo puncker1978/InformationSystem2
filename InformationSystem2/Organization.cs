@@ -318,6 +318,42 @@ namespace InformationSystem2
         }
 
         /// <summary>
+        /// Метод удаляет отдел из списка всех отделов и возвращает Id удаляемого отдела
+        /// </summary>
+        /// <param name="departmentName">Название отдела</param>
+        /// <returns>Id удаляемого отдела</returns>
+        internal Guid DeleteDepartmentFromXml(string departmentName)
+        {
+            string idDepartment = "";
+            XDocument xDocDepartment = XDocument.Load("departments.xml");
+            foreach (XElement _department in xDocDepartment.Element("Departments").Elements("Department"))
+            {
+                if (_department.Element("Отдел").Value == departmentName)
+                {
+                    idDepartment = _department.Element("Id").Value;
+                    _department.Remove();
+                    break;
+                }
+            }
+            xDocDepartment.Save("departments.xml");
+            return Guid.Parse(idDepartment);
+        }
+
+        /// <summary>
+        /// Метод удалает из xml-файла всех сотрудников из удаляемого одела
+        /// </summary>
+        /// <param name="idDepartment">Id отдела</param>
+        internal void DeleteDepartmentEmployees(Guid idDepartment)
+        {
+            XDocument xDoc = XDocument.Load("employees.xml");
+            IEnumerable<XElement> tempEmployees = xDoc.Root.Descendants("Employee")
+                .Where(t => t.Element("Отдел")
+                .Value == idDepartment.ToString());
+            tempEmployees.Remove();
+            xDoc.Save("employees.xml");
+        }
+
+        /// <summary>
         /// Метод переименования отдела в xml-файле
         /// </summary>
         /// <param name="oldDepartmentName">Старое название отдела</param>

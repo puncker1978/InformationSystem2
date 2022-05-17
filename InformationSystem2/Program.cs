@@ -97,7 +97,7 @@ namespace InformationSystem2
             //    string secondName = Console.ReadLine();
             //    Console.Write("Имя: ");
             //    string firstName = Console.ReadLine();
-                
+
             //    //Поскольку могут быть разные сотрудники с одинаковыми фамилиями и именоми,
             //    //то будем создавать список всех таких сотрудников
             //    List<Employee> employees = organization.FindEmployee(secondName, firstName);
@@ -166,16 +166,16 @@ namespace InformationSystem2
             //        int age = int.Parse(Console.ReadLine());
             //        Console.Write("Количество проектов: ");
             //        int projects = int.Parse(Console.ReadLine());
-                    
+
             //        //Создаём нового сотрудника
             //        Employee employee = new Employee(secondName, firstName, age, projects);
-                    
+
             //        //Добавляем нового сотрудника в отдел
             //        organization.AddEmployeeToDepartment(department, employee);
-                    
+
             //        //Сохранияем сведения о новом сотруднике в xml-файле
             //        organization.AddEmployeeToXml(employee);
-                    
+
             //        //Увеличиваем контингент того отдела, в который новый сотрудник был добавлен, на единицу
             //        organization.EditContingentDepartmentXml(department, "add");
 
@@ -191,69 +191,93 @@ namespace InformationSystem2
             #endregion
 
             #region Редактирование отдела (переименование)
-            //{
-            //    Organization organzation = new Organization();
-            //    Console.Write("Введите название отдела, который необходимо переименовать: ");
-            //    string oldDepartmentName = Console.ReadLine();
-            //    organzation.DepartmentsFromXmlToCollection();
-            //    if(organzation.FindDepartment(oldDepartmentName) != null)
-            //    {
-            //        Console.Write("Введите новое название отдела: ");
-            //        string newDepartmentName = Console.ReadLine();
-            //        organzation.RenameDepartmentXml(oldDepartmentName, newDepartmentName);
-            //        Console.WriteLine($"Отдел \"{oldDepartmentName}\" переименован в \"{newDepartmentName}\"");
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine($"Отдел \"{oldDepartmentName}\" не найден");
-            //    }
-            //    Console.ReadKey();
-            //    Console.Clear();
-            //}
+            {
+                //Organization organization = new Organization();
+                //Console.Write("Введите название отдела, который необходимо переименовать: ");
+                //string oldDepartmentName = Console.ReadLine();
+                //organization.DepartmentsFromXmlToCollection();
+                //if (organization.FindDepartment(oldDepartmentName) != null)
+                //{
+                //    Console.Write("Введите новое название отдела: ");
+                //    string newDepartmentName = Console.ReadLine();
+                //    organization.RenameDepartmentXml(oldDepartmentName, newDepartmentName);
+                //    Console.WriteLine($"Отдел \"{oldDepartmentName}\" переименован в \"{newDepartmentName}\"");
+                //}
+                //else
+                //{
+                //    Console.WriteLine($"Отдел \"{oldDepartmentName}\" не найден");
+                //}
+                //Console.ReadKey();
+                //Console.Clear();
+            }
             #endregion
 
             #region Редактирование сотрудника (изменение числа проектов)
             {
-                Organization organzation = new Organization();
-                Console.WriteLine("Изменение количества проектов сотрудника");
-                Console.Write("Фамилия: ");
-                string secondName = Console.ReadLine();
-                Console.Write("Имя: ");
-                string firstName = Console.ReadLine();
+                //Organization organization = new Organization();
+                //Console.WriteLine("Изменение количества проектов сотрудника");
+                //Console.Write("Фамилия: ");
+                //string secondName = Console.ReadLine();
+                //Console.Write("Имя: ");
+                //string firstName = Console.ReadLine();
 
-                //Читаем из xml-файла список всех сотрудников
-                organzation.EmployeesFromXmlToCollection();
+                ////Читаем из xml-файла список всех сотрудников
+                //organization.EmployeesFromXmlToCollection();
 
-                //Формируем список всех сотрудников, удовлетворяющих условиям поиска (таких может оказаться несколько)
-                List<Employee> employees = organzation.FindEmployee(secondName, firstName);
+                ////Формируем список всех сотрудников, удовлетворяющих условиям поиска (таких может оказаться несколько)
+                //List<Employee> employees = organization.FindEmployee(secondName, firstName);
 
-                //Количество сотрудников, удовлетворяющих условиям поиска
-                int count = employees.Count;
+                ////Количество сотрудников, удовлетворяющих условиям поиска
+                //int count = employees.Count;
 
-                if (employees != null)
-                {
-                    for (int i = 0; i < count; i++)
-                    {
-                        //Выводим на экран сведения обо всех найденных сотрудниках
-                        Console.WriteLine($"№ {i}\n{employees[i]}\n");
-                    }
-                    Console.Write("Номер сотрудника для изменения числа проектов: ");
-                    int number = int.Parse(Console.ReadLine());
+                //if (employees != null)
+                //{
+                //    for (int i = 0; i < count; i++)
+                //    {
+                //        //Выводим на экран сведения обо всех найденных сотрудниках
+                //        Console.WriteLine($"№ {i}\n{employees[i]}\n");
+                //    }
+                //    Console.Write("Номер сотрудника для изменения числа проектов: ");
+                //    int number = int.Parse(Console.ReadLine());
 
-                    //Выбранный сотрудник
-                    Employee employee = employees[number];
+                //    //Выбранный сотрудник
+                //    Employee employee = employees[number];
 
-                    //Изменяем число проектов
-                    Console.Write("Новое число проектов: ");
+                //    //Изменяем число проектов
+                //    Console.Write("Новое число проектов: ");
 
-                    int newProjects = int.Parse(Console.ReadLine());
-                    organzation.EditEmployee(employee, newProjects);
-                }
-                else
-                {
-                    Console.WriteLine($"Сотрудник с фамилией {secondName} и именем {firstName} не найден");
-                }
-                Console.WriteLine("Количество проектов успешно изменено");
+                //    int newProjects = int.Parse(Console.ReadLine());
+                //    organization.EditEmployee(employee, newProjects);
+                //}
+                //else
+                //{
+                //    Console.WriteLine($"Сотрудник с фамилией {secondName} и именем {firstName} не найден");
+                //}
+                //Console.WriteLine("Количество проектов успешно изменено");
+                //Console.ReadKey();
+                //Console.Clear();
+            }
+            #endregion
+
+            #region Удаление сотрудника
+            {
+                Organization organization = new Organization();
+                Console.Write("Введите имя или фамилию сотрудника, которого хотите удалить: ");
+                string employeeName = Console.ReadLine();
+                organization.DeleteEmployeeFromXml(employeeName);//Удалять нужно по Id сотрудника, а не по имени или фамилии
+                Console.ReadKey();
+                Console.Clear();
+            }
+            #endregion
+
+            #region Удаление отдела и всех сотрудников данного отдела
+            {
+                Organization organization = new Organization();
+                Console.Write("Введите название отдела, в который хотите удалить: ");
+                string departmentName = Console.ReadLine();
+                Guid idDepartment = organization.DeleteDepartmentFromXml(departmentName);
+                organization.DeleteDepartmentEmployees(idDepartment);
+                Console.WriteLine($"Отдел {departmentName} и все сотрудники данного отдела удалены");
                 Console.ReadKey();
                 Console.Clear();
             }
