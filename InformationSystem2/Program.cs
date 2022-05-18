@@ -262,9 +262,44 @@ namespace InformationSystem2
             #region Удаление сотрудника
             {
                 Organization organization = new Organization();
-                Console.Write("Введите имя или фамилию сотрудника, которого хотите удалить: ");
-                string employeeName = Console.ReadLine();
-                organization.DeleteEmployeeFromXml(employeeName);//Удалять нужно по Id сотрудника, а не по имени или фамилии
+                Console.WriteLine("Введите данные сотрудника, которого хотите удалить");
+                Console.Write("Фамилия: ");
+                string secondName = Console.ReadLine();
+                Console.WriteLine("Имя: ");
+                string firstName = Console.ReadLine();
+                
+                //Читаем из xml-файла список всех сотрудников
+                organization.EmployeesFromXmlToCollection();
+
+                //Формируем список всех сотрудников, удовлетворяющих условиям поиска (таких может оказаться несколько)
+                List<Employee> employees = organization.FindEmployee(secondName, firstName);
+
+                //Количество сотрудников, удовлетворяющих условиям поиска
+                int count = employees.Count;
+
+                if (employees != null)
+                {
+                    for (int i = 0; i < count; i++)
+                    {
+                        //Выводим на экран сведения обо всех найденных сотрудниках
+                        Console.WriteLine($"№ {i + 1}\n{employees[i]}\n");
+                    }
+                    Console.Write("Номер сотрудника для удаления: ");
+                    int number = int.Parse(Console.ReadLine());
+
+                    //Выбранный сотрудник
+                    Employee employee = employees[number];
+                    //Отдел, к которому он прикреплён
+                    Department department = organization.FindDepartmentByEmployee(employee);
+                    organization.DeleteEmployeeFromXml(employee);
+
+
+                }
+                else
+                {
+                    Console.WriteLine($"Сотрудник с фамилией {secondName} и именем {firstName} не найден");
+                }
+                Console.WriteLine("Количество проектов успешно изменено");
                 Console.ReadKey();
                 Console.Clear();
             }

@@ -317,6 +317,11 @@ namespace InformationSystem2
             }
         }
 
+        internal void DeleteEmployeeFromXml(Employee employee)
+        {
+            
+        }
+
         /// <summary>
         /// Метод удаляет отдел из списка всех отделов и возвращает Id удаляемого отдела
         /// </summary>
