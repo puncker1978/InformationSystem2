@@ -234,13 +234,32 @@ namespace InformationSystem2
         }
 
         /// <summary>
+        /// Метод поиска отдела по Id
+        /// </summary>
+        /// <param name="idDepartment"></param>
+        /// <returns>Отдел</returns>
+        internal Department FindDepartment(Employee employee)
+        {
+            Department department = null;
+            foreach (Department dep in Departments)
+            {
+                if (dep.Id == employee.IdDepartment)
+                {
+                    department = dep;
+                    break;
+                }
+            }
+            return department;
+        }
+
+        /// <summary>
         /// Метод поиска сотрудника по фамилии и имени.
         /// Поскольку таких сотрудников может быть больше 1, то всех сотрудников,
         /// с такими фамилиями и именами кидаем в коллекцию
         /// </summary>
         /// <param name="secondName">Фамилия для поиска</param>
         /// <param name="firstName">Имя для поиска</param>
-        /// <returns></returns>
+        /// <returns>Список всех найденных сотрудников</returns>
         internal List<Employee> FindEmployee(string secondName, string firstName)
         {
             List<Employee> employees = new List<Employee>();

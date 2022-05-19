@@ -262,38 +262,46 @@ namespace InformationSystem2
             #region Удаление сотрудника
             {
                 Organization organization = new Organization();
+                //Читаем из xml-файла список всех сотрудников
+                organization.EmployeesFromXmlToCollection();
+                organization.DepartmentsFromXmlToCollection();
+
                 Console.WriteLine("Введите данные сотрудника, которого хотите удалить");
                 Console.Write("Фамилия: ");
                 string secondName = Console.ReadLine();
-                Console.WriteLine("Имя: ");
+                Console.Write("Имя: ");
                 string firstName = Console.ReadLine();
                 
-                //Читаем из xml-файла список всех сотрудников
-                organization.EmployeesFromXmlToCollection();
+                
 
                 //Формируем список всех сотрудников, удовлетворяющих условиям поиска (таких может оказаться несколько)
                 List<Employee> employees = organization.FindEmployee(secondName, firstName);
 
                 //Количество сотрудников, удовлетворяющих условиям поиска
                 int count = employees.Count;
+                Console.Clear();
 
                 if (employees != null)
                 {
                     for (int i = 0; i < count; i++)
                     {
                         //Выводим на экран сведения обо всех найденных сотрудниках
-                        Console.WriteLine($"№ {i + 1}\n{employees[i]}\n");
+                        Console.WriteLine($"№ {i}\n{employees[i]}\n");
                     }
                     Console.Write("Номер сотрудника для удаления: ");
                     int number = int.Parse(Console.ReadLine());
 
                     //Выбранный сотрудник
                     Employee employee = employees[number];
+                    
                     //Отдел, к которому он прикреплён
-                    Department department = organization.FindDepartmentByEmployee(employee);
+                    Department department = organization.FindDepartment(employee);
+                    
+                    //Удаляем сотрудника из xml-файла
                     organization.DeleteEmployeeFromXml(employee);
 
-
+                    //Уменьшаем контингент соответствующего отдела на 1
+                    organization.EditContingentDepartmentXml(department, "del");
                 }
                 else
                 {
