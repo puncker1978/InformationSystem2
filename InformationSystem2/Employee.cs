@@ -6,9 +6,9 @@ namespace InformationSystem2
 {
     internal class Employee
     {
-        #region Константы
+        #region Readonly - поле
         /// <summary>
-        /// Ставка заработной платы труда на 1 проект
+        /// Ставка заработной платы труда на 1 проект в уях
         /// </summary>
         private readonly int salary = 1000;
         #endregion

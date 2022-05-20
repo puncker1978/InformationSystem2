@@ -261,53 +261,54 @@ namespace InformationSystem2
 
             #region Удаление сотрудника
             {
-                Organization organization = new Organization();
-                //Читаем из xml-файла список всех сотрудников
-                organization.EmployeesFromXmlToCollection();
-                //Читаем из xml-файла список всех отделов
-                organization.DepartmentsFromXmlToCollection();
+                //Organization organization = new Organization();
+                ////Читаем из xml-файла список всех сотрудников
+                //organization.EmployeesFromXmlToCollection();
+                ////Читаем из xml-файла список всех отделов
+                //organization.DepartmentsFromXmlToCollection();
                 
-                Console.WriteLine("Введите данные сотрудника, которого хотите удалить");
-                Console.Write("Фамилия: ");
-                string secondName = Console.ReadLine();
-                Console.Write("Имя: ");
-                string firstName = Console.ReadLine();
+                //Console.WriteLine("Введите данные сотрудника, которого хотите удалить");
+                //Console.Write("Фамилия: ");
+                //string secondName = Console.ReadLine();
+                //Console.Write("Имя: ");
+                //string firstName = Console.ReadLine();
 
-                //Формируем список всех сотрудников, удовлетворяющих условиям поиска (таких может оказаться несколько)
-                List<Employee> employees = organization.FindEmployee(secondName, firstName);
+                ////Формируем список всех сотрудников, удовлетворяющих условиям поиска (таких может оказаться несколько)
+                //List<Employee> employees = organization.FindEmployee(secondName, firstName);
 
-                //Количество сотрудников, удовлетворяющих условиям поиска
-                int count = employees.Count;
+                ////Количество сотрудников, удовлетворяющих условиям поиска
+                //int count = employees.Count;
+                //Console.Clear();
 
-                if (employees != null)
-                {
-                    for (int i = 0; i < count; i++)
-                    {
-                        //Выводим на экран сведения обо всех найденных сотрудниках
-                        Console.WriteLine($"№ {i + 1}\n{employees[i]}\n");
-                    }
-                    Console.Write("Номер сотрудника для удаления: ");
-                    int number = int.Parse(Console.ReadLine());
+                //if (employees != null)
+                //{
+                //    for (int i = 0; i < count; i++)
+                //    {
+                //        //Выводим на экран сведения обо всех найденных сотрудниках
+                //        Console.WriteLine($"№ {i + 1}\n{employees[i]}\n");
+                //    }
+                //    Console.Write("Номер сотрудника для удаления: ");
+                //    int number = int.Parse(Console.ReadLine());
 
-                    //Выбранный сотрудник
-                    Employee employee = employees[number - 1];
+                //    //Выбранный сотрудник
+                //    Employee employee = employees[number - 1];
                     
-                    //Отдел, к которому он прикреплён
-                    Department department = organization.FindDepartment(employee);
+                //    //Отдел, к которому он прикреплён
+                //    Department department = organization.FindDepartment(employee);
                     
-                    //Удаляем из xml-файла сотрудника
-                    organization.DeleteEmployeeFromXml(employee);
+                //    //Удаляем из xml-файла сотрудника
+                //    organization.DeleteEmployeeFromXml(employee);
 
-                    //Меняем контингент отдела из которого удалили сотрудника
-                    organization.EditContingentDepartmentXml(department, "del");
-                }
-                else
-                {
-                    Console.WriteLine($"Сотрудник с фамилией {secondName} и именем {firstName} не найден");
-                }
-                Console.WriteLine($"Сотрудник c фамилией {secondName} и именем {firstName} успешно удалён");
-                Console.ReadKey();
-                Console.Clear();
+                //    //Меняем контингент отдела из которого удалили сотрудника
+                //    organization.EditContingentDepartmentXml(department, "del");
+                //}
+                //else
+                //{
+                //    Console.WriteLine($"Сотрудник с фамилией {secondName} и именем {firstName} не найден");
+                //}
+                //Console.WriteLine($"Сотрудник c фамилией {secondName} и именем {firstName} успешно удалён");
+                //Console.ReadKey();
+                //Console.Clear();
             }
             #endregion
 
