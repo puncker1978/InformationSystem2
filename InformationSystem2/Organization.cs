@@ -234,6 +234,29 @@ namespace InformationSystem2
         }
 
         /// <summary>
+        /// Метод поиска отдела по сотруднику.
+        /// Так как каждый сотрудник числится только в одном отделе,
+        /// то найдётся либо только один отдел,
+        /// либо отдел вообще не будет найден
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
+        internal Department FindDepartment(Employee employee)
+        {
+            Department department = null;
+            
+            foreach (Department _department in Departments)
+            {
+                if (_department.Id == employee.IdDepartment)
+                {
+                    department= _department;
+                    break;
+                }
+            }
+            return department;
+        }
+
+        /// <summary>
         /// Метод поиска сотрудника по фамилии и имени.
         /// Поскольку таких сотрудников может быть больше 1, то всех сотрудников,
         /// с такими фамилиями и именами кидаем в коллекцию
@@ -319,7 +342,13 @@ namespace InformationSystem2
 
         internal void DeleteEmployeeFromXml(Employee employee)
         {
-            
+            XDocument xDoc = XDocument.Load("employees.xml");
+            IEnumerable<XElement> _employee = xDoc.Root.Descendants("Employee")
+                .Where(emp => emp.Element("Отдел")
+                .Value == employee.IdDepartment.ToString());
+
+            _employee.Remove();
+            xDoc.Save("employees.xml");
         }
 
         /// <summary>
