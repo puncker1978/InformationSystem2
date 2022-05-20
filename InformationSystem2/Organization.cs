@@ -263,7 +263,7 @@ namespace InformationSystem2
         /// </summary>
         /// <param name="secondName">Фамилия для поиска</param>
         /// <param name="firstName">Имя для поиска</param>
-        /// <returns></returns>
+        /// <returns>Список всех найденных сотрудников</returns>
         internal List<Employee> FindEmployee(string secondName, string firstName)
         {
             List<Employee> employees = new List<Employee>();
