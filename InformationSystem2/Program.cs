@@ -67,6 +67,106 @@ namespace InformationSystem2
             }
             #endregion
 
+            #region Основное меню
+            {
+                Console.WriteLine("Меню");
+                Console.WriteLine();
+
+                MainMenu mainMenu = new MainMenu();
+
+                while (true)
+                {
+                    mainMenu.DrawMenu();
+                    switch (Console.ReadKey(true).Key)
+                    {
+                        case ConsoleKey.DownArrow:
+                            if (mainMenu.Index < mainMenu.menuItems.Length - 1)
+                                mainMenu.Index++;
+                            break;
+                        case ConsoleKey.UpArrow:
+                            if (mainMenu.Index > 0)
+                                mainMenu.Index--;
+                            break;
+                        case ConsoleKey.Enter:
+                            switch (mainMenu.Index)
+                            {
+                                case 0:
+                                    {
+                                        Console.WriteLine("Поиск отдела");
+                                    }
+                                    break;
+
+
+                                case 1:
+                                    {
+                                        Console.WriteLine("Поиск сотрудника");
+                                    }
+                                    break;
+                                
+                                case 2:
+                                    {
+                                        Console.WriteLine("Добавить новый отдел");
+                                    }
+                                    break;
+                                
+                                case 3:
+                                    {
+                                        Console.WriteLine("Добавить нового сотрудника");
+                                    }
+                                    break;
+                                
+                                case 4:
+                                    {
+                                        Console.WriteLine("Переименовать отдел");
+                                    }
+                                    break;
+                                
+                                case 5:
+                                    {
+                                        Console.WriteLine("Изменить число проектов сотрудника");
+                                    }
+                                    break;
+                                
+                                case 6:
+                                    {
+                                        Console.WriteLine("Удалить сотрудника");
+                                    }
+                                    break;
+                                
+                                case 7:
+                                    {
+                                        Console.WriteLine("Удалить отдел со всеми сотрудниками");
+                                    }
+                                    break;
+                                
+                                case 8:
+                                    {
+                                        Console.WriteLine("Сортировка по полю \"Имя сотрудника\"");
+                                    }
+                                    break;
+                                
+                                case 9:
+                                    {
+                                        Console.WriteLine("Сортировка по полю \"Имя сотрудника\" и \"Фамилия сотрудника\"");
+                                    }
+                                    break;
+
+                                case 10:
+                                    {
+                                        Console.WriteLine("Сортировка по полю \"Имя сотрудника\" и \"Фамилия сотрудника\" и \"Число проектов\"");
+                                    }
+                                    break;
+
+                                case 11:
+                                    Console.WriteLine($"Выбран пункт \"{mainMenu.menuItems[mainMenu.Index]}\"");
+                                    return;
+                            }
+                            break;
+                    }
+                }
+            }
+            #endregion
+
             #region Поиск отдела
             //{
             //    Organization organization = new Organization();
@@ -314,14 +414,14 @@ namespace InformationSystem2
 
             #region Удаление отдела и всех сотрудников данного отдела
             {
-                Organization organization = new Organization();
-                Console.Write("Введите название отдела, в который хотите удалить: ");
-                string departmentName = Console.ReadLine();
-                Guid idDepartment = organization.DeleteDepartmentFromXml(departmentName);
-                organization.DeleteDepartmentEmployees(idDepartment);
-                Console.WriteLine($"Отдел {departmentName} и все сотрудники данного отдела удалены");
-                Console.ReadKey();
-                Console.Clear();
+                //Organization organization = new Organization();
+                //Console.Write("Введите название отдела, в который хотите удалить: ");
+                //string departmentName = Console.ReadLine();
+                //Guid idDepartment = organization.DeleteDepartmentFromXml(departmentName);
+                //organization.DeleteDepartmentEmployees(idDepartment);
+                //Console.WriteLine($"Отдел {departmentName} и все сотрудники данного отдела удалены");
+                //Console.ReadKey();
+                //Console.Clear();
             }
             #endregion
         }
