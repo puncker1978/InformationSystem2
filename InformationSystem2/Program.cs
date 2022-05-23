@@ -96,7 +96,6 @@ namespace InformationSystem2
                                     }
                                     break;
 
-
                                 case 1:
                                     {
                                         Console.WriteLine("Поиск сотрудника");
