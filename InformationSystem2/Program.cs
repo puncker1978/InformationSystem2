@@ -358,7 +358,9 @@ namespace InformationSystem2
                                 
                                 case 8:
                                     {
-                                        Console.WriteLine("Сортировка по полю \"Фамилия сотрудника\"");
+                                        Console.WriteLine("Сортировка по полю \"Возраст\"");
+                                        Organization organization = new Organization();
+
                                     }
                                     break;
                                 
