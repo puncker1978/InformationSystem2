@@ -91,50 +91,268 @@ namespace InformationSystem2
                             switch (mainMenu.Index)
                             {
                                 case 0:
-                                    {
+                                    {   //Поиск отдела
                                         Console.WriteLine("Поиск отдела");
+                                        Organization organization = new Organization();
+                                        organization.DepartmentsFromXmlToCollection();
+                                        Console.WriteLine("Поиск отдела");
+                                        Console.Write("Название отдела: ");
+                                        string departmentName = Console.ReadLine();
+                                        Department department = organization.FindDepartment(departmentName);
+                                        if (department != null)
+                                        {
+                                            Console.WriteLine(department);
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"Отдел \"{departmentName}\" не найден");
+                                        }
+                                        Console.ReadKey();
+                                        Console.Clear();
                                     }
                                     break;
 
                                 case 1:
-                                    {
+                                    {   //Поиск сотрудника
                                         Console.WriteLine("Поиск сотрудника");
+                                        Organization organization = new Organization();
+                                        organization.EmployeesFromXmlToCollection();
+                                        Console.WriteLine("Поиск сотрудника по фамилии и имени");
+                                        Console.Write("Фамилия: ");
+                                        string secondName = Console.ReadLine();
+                                        Console.Write("Имя: ");
+                                        string firstName = Console.ReadLine();
+
+                                        //Поскольку могут быть разные сотрудники с одинаковыми фамилиями и именоми,
+                                        //то будем создавать список всех таких сотрудников
+                                        List<Employee> employees = organization.FindEmployee(secondName, firstName);
+                                        if (employees != null)
+                                        {
+                                            Console.WriteLine($"Найденo сотрудников: {employees.Count}");
+                                            foreach (Employee employee in employees)
+                                            {
+                                                //Выводим список всех найденных сотрудников на экран консоли
+                                                Console.WriteLine(employee);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"Сотрудник {secondName} {firstName} не найден");
+                                        }
+                                        Console.ReadKey();
+                                        Console.Clear();
                                     }
                                     break;
                                 
                                 case 2:
-                                    {
+                                    {   //Создание нового отдела
                                         Console.WriteLine("Добавить новый отдел");
+                                        Organization organization = new Organization();
+                                        organization.DepartmentsFromXmlToCollection();
+
+                                        Console.WriteLine("Введите данные нового отдела:");
+                                        Console.Write("Название отдела: ");
+                                        string departmentName = Console.ReadLine();
+                                        if (organization.FindDepartment(departmentName) == null)
+                                        {
+                                            Guid id = Guid.NewGuid();
+                                            DateTime creationDate = DateTime.Now;
+                                            int contingent = 0;
+                                            Department department = new Department(id, departmentName, creationDate, contingent);
+                                            organization.AddDepartmentToXml(department);
+                                            Console.WriteLine($"Отдел {departmentName} успешно создан");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"Отдел \"{departmentName}\" уже существует");
+                                        }
+                                        Console.ReadKey();
+                                        Console.Clear();
                                     }
                                     break;
                                 
                                 case 3:
-                                    {
+                                    {   //Добавление нового сотрудника
                                         Console.WriteLine("Добавить нового сотрудника");
+                                        Organization organization = new Organization();
+
+                                        Console.WriteLine("Введите данные нового сотрудника:");
+                                        Console.Write("Отдел: ");
+                                        string departmentName = Console.ReadLine();
+                                        //Находим отдел, в который хотим добавить нового сотрудника
+                                        organization.DepartmentsFromXmlToCollection();
+                                        Department department = organization.FindDepartment(departmentName);
+                                        //Проверяем, существует ли отдел с введенным названием
+                                        if (department != null)
+                                        {
+                                            Console.Write("Фамилия: ");
+                                            string secondName = Console.ReadLine();
+                                            Console.Write("Имя: ");
+                                            string firstName = Console.ReadLine();
+                                            Console.Write("Возраст: ");
+                                            int age = int.Parse(Console.ReadLine());
+                                            Console.Write("Количество проектов: ");
+                                            int projects = int.Parse(Console.ReadLine());
+
+                                            //Создаём нового сотрудника
+                                            Employee employee = new Employee(secondName, firstName, age, projects);
+
+                                            //Добавляем нового сотрудника в отдел
+                                            organization.AddEmployeeToDepartment(department, employee);
+
+                                            //Сохранияем сведения о новом сотруднике в xml-файле
+                                            organization.AddEmployeeToXml(employee);
+
+                                            //Увеличиваем контингент того отдела, в который новый сотрудник был добавлен, на единицу
+                                            organization.EditContingentDepartmentXml(department, "add");
+
+                                            Console.WriteLine($"Сотрудник {secondName} {firstName} успешно добавлен в отдел {departmentName}");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"Отдела с названием \"{departmentName}\" не существует");
+                                        }
+                                        Console.ReadKey();
+                                        Console.Clear();
                                     }
                                     break;
                                 
                                 case 4:
                                     {
                                         Console.WriteLine("Переименовать отдел");
+                                        Organization organization = new Organization();
+                                        Console.Write("Введите название отдела, который необходимо переименовать: ");
+                                        string oldDepartmentName = Console.ReadLine();
+                                        organization.DepartmentsFromXmlToCollection();
+                                        if (organization.FindDepartment(oldDepartmentName) != null)
+                                        {
+                                            Console.Write("Введите новое название отдела: ");
+                                            string newDepartmentName = Console.ReadLine();
+                                            organization.RenameDepartmentXml(oldDepartmentName, newDepartmentName);
+                                            Console.WriteLine($"Отдел \"{oldDepartmentName}\" переименован в \"{newDepartmentName}\"");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"Отдел \"{oldDepartmentName}\" не найден");
+                                        }
+                                        Console.ReadKey();
+                                        Console.Clear();
                                     }
                                     break;
                                 
                                 case 5:
                                     {
                                         Console.WriteLine("Изменить число проектов сотрудника");
+                                        Organization organization = new Organization();
+                                        Console.WriteLine("Данные сотрудника");
+                                        Console.Write("Фамилия: ");
+                                        string secondName = Console.ReadLine();
+                                        Console.Write("Имя: ");
+                                        string firstName = Console.ReadLine();
+
+                                        //Читаем из xml-файла список всех сотрудников
+                                        organization.EmployeesFromXmlToCollection();
+
+                                        //Формируем список всех сотрудников, удовлетворяющих условиям поиска (таких может оказаться несколько)
+                                        List<Employee> employees = organization.FindEmployee(secondName, firstName);
+
+                                        //Количество сотрудников, удовлетворяющих условиям поиска
+                                        int count = employees.Count;
+
+                                        if (employees != null)
+                                        {
+                                            for (int i = 0; i < count; i++)
+                                            {
+                                                //Выводим на экран сведения обо всех найденных сотрудниках
+                                                Console.WriteLine($"№ {i}\n{employees[i]}\n");
+                                            }
+                                            Console.Write("Номер сотрудника для изменения числа проектов: ");
+                                            int number = int.Parse(Console.ReadLine());
+
+                                            //Выбранный сотрудник
+                                            Employee employee = employees[number];
+
+                                            //Изменяем число проектов
+                                            Console.Write("Новое число проектов: ");
+
+                                            int newProjects = int.Parse(Console.ReadLine());
+                                            organization.EditEmployee(employee, newProjects);
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"Сотрудник с фамилией {secondName} и именем {firstName} не найден");
+                                        }
+                                        Console.WriteLine("Количество проектов успешно изменено");
+                                        Console.ReadKey();
+                                        Console.Clear();
                                     }
                                     break;
                                 
                                 case 6:
                                     {
                                         Console.WriteLine("Удалить сотрудника");
+                                        Organization organization = new Organization();
+                                        //Читаем из xml-файла список всех сотрудников
+                                        organization.EmployeesFromXmlToCollection();
+                                        //Читаем из xml-файла список всех отделов
+                                        organization.DepartmentsFromXmlToCollection();
+
+                                        Console.WriteLine("Введите данные сотрудника, которого хотите удалить");
+                                        Console.Write("Фамилия: ");
+                                        string secondName = Console.ReadLine();
+                                        Console.Write("Имя: ");
+                                        string firstName = Console.ReadLine();
+
+                                        //Формируем список всех сотрудников, удовлетворяющих условиям поиска (таких может оказаться несколько)
+                                        List<Employee> employees = organization.FindEmployee(secondName, firstName);
+
+                                        //Количество сотрудников, удовлетворяющих условиям поиска
+                                        int count = employees.Count;
+                                        Console.Clear();
+
+                                        if (employees != null)
+                                        {
+                                            for (int i = 0; i < count; i++)
+                                            {
+                                                //Выводим на экран сведения обо всех найденных сотрудниках
+                                                Console.WriteLine($"№ {i + 1}\n{employees[i]}\n");
+                                            }
+                                            Console.Write("Номер сотрудника для удаления: ");
+                                            int number = int.Parse(Console.ReadLine());
+
+                                            //Выбранный сотрудник
+                                            Employee employee = employees[number - 1];
+
+                                            //Отдел, к которому он прикреплён
+                                            Department department = organization.FindDepartment(employee);
+
+                                            //Удаляем из xml-файла сотрудника
+                                            organization.DeleteEmployeeFromXml(employee);
+
+                                            //Меняем контингент отдела из которого удалили сотрудника
+                                            organization.EditContingentDepartmentXml(department, "del");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine($"Сотрудник с фамилией {secondName} и именем {firstName} не найден");
+                                        }
+                                        Console.WriteLine($"Сотрудник c фамилией {secondName} и именем {firstName} успешно удалён");
+                                        Console.ReadKey();
+                                        Console.Clear();
                                     }
                                     break;
                                 
                                 case 7:
                                     {
                                         Console.WriteLine("Удалить отдел со всеми сотрудниками");
+                                        Organization organization = new Organization();
+                                        Console.Write("Введите название отдела, в который хотите удалить: ");
+                                        string departmentName = Console.ReadLine();
+                                        Guid idDepartment = organization.DeleteDepartmentFromXml(departmentName);
+                                        organization.DeleteDepartmentEmployees(idDepartment);
+                                        Console.WriteLine($"Отдел {departmentName} и все сотрудники данного отдела удалены");
+                                        Console.ReadKey();
+                                        Console.Clear();
                                     }
                                     break;
                                 

@@ -133,6 +133,7 @@ namespace InformationSystem2
                             new XElement("Имя", employee.FirstName),
                             new XElement("Возраст", employee.Age),
                             new XElement("Зарплата", employee.Total),
+                            new XElement("Проекты", employee.Projects),
                             new XElement("Отдел", employee.IdDepartment)));
 
                 xdoc.Save("employees.xml");
@@ -170,17 +171,17 @@ namespace InformationSystem2
             XElement _employees = xDoc.Element("Employees");
             if(_employees != null)
             {
-                foreach (XElement emp in _employees.Elements("Employee"))
+                foreach (XElement _employee in _employees.Elements("Employee"))
                 {
                     Employee employee = new Employee
                     {
-                        Id = Guid.Parse(emp.Element("Id").Value),
-                        SecondName = emp.Element("Фамилия").Value,
-                        FirstName = emp.Element("Имя").Value,
-                        Age = int.Parse(emp.Element("Возраст").Value),
-                        Total = int.Parse(emp.Element("Зарплата").Value),
-                        Projects = int.Parse(emp.Element("Проекты").Value),
-                        IdDepartment = Guid.Parse(emp.Element("Отдел").Value)
+                        Id = Guid.Parse(_employee.Element("Id").Value),
+                        SecondName = _employee.Element("Фамилия").Value,
+                        FirstName = _employee.Element("Имя").Value,
+                        Age = int.Parse(_employee.Element("Возраст").Value),
+                        Total = int.Parse(_employee.Element("Зарплата").Value),
+                        Projects = int.Parse(_employee.Element("Проекты").Value),
+                        IdDepartment = Guid.Parse(_employee.Element("Отдел").Value)
                     };
                     Employees.Add(employee);
                 }
@@ -410,6 +411,10 @@ namespace InformationSystem2
                 xDoc.Save("departments.xml");
             }
         }
+        #endregion
+
+        #region Сортировки
+
         #endregion
     }
 }
