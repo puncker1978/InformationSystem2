@@ -414,8 +414,53 @@ namespace InformationSystem2
         #endregion
 
         #region Сортировки
-        
-        
+        /// <summary>
+        /// Сортировка сотрудников по полю "Возраст"
+        /// </summary>
+        /// <returns>Отсортированный список</returns>
+        internal List<Employee> SortByAge()
+        {
+            //List<Employee> employees = new List<Employee>();
+
+            var emp = from _employee in Employees
+                        orderby _employee.Age
+                        select _employee;
+            return emp.ToList();
+        }
+
+        internal List<Employee> SortBySecondNameThenTotal()
+        {
+            var emp = from _employee in Employees
+                        orderby _employee.SecondName, _employee.Total
+                        select _employee;
+            return emp.ToList();
+        }
+
+        internal List<Employee> SortBySecondNameThenFirstNameThenProjects()
+        {
+            var emp = from _employee in Employees
+                      orderby _employee.SecondName, _employee.FirstName, _employee.Projects
+                      select _employee;
+            return emp.ToList();
+        }
+
+        #endregion
+
+        #region Методы вывода на экран
+
+        internal void ShowAllEmployees()
+        {
+            Console.WriteLine($"Фамилия       Имя         Возраст    Проектов    Зарплата");
+            foreach (Employee employee in Employees)
+            {
+                Console.WriteLine($"{employee.SecondName}" +
+                    $"{employee.FirstName,10}" +
+                    $"{employee.Age,10}" +
+                    $"{employee.Projects,10}" +
+                    $"{employee.Total,15}");
+            }
+        }
+
         #endregion
     }
 }

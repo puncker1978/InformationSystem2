@@ -358,21 +358,40 @@ namespace InformationSystem2
                                 
                                 case 8:
                                     {
+                                        Console.Clear();
                                         Console.WriteLine("Сортировка по полю \"Возраст\"");
                                         Organization organization = new Organization();
-
+                                        organization.EmployeesFromXmlToCollection();
+                                        organization.Employees = organization.SortByAge();
+                                        organization.ShowAllEmployees();
+                                        Console.ReadKey();
+                                        Console.Clear();
                                     }
                                     break;
                                 
                                 case 9:
                                     {
-                                        Console.WriteLine("Сортировка по полю \"Фамилия сотрудника\" и \"Имя сотрудника\"");
+                                        Console.Clear();
+                                        Console.WriteLine("Сортировка по полю \"Фамилия сотрудника\" и \"Заработной плате\"");
+                                        Organization organization = new Organization();
+                                        organization.EmployeesFromXmlToCollection();
+                                        organization.Employees = organization.SortBySecondNameThenTotal();
+                                        organization.ShowAllEmployees();
+                                        Console.ReadKey();
+                                        Console.Clear();
                                     }
                                     break;
 
                                 case 10:
                                     {
+                                        Console.Clear();
                                         Console.WriteLine("Сортировка по полю \"Фамилия сотрудника\" и \"Имя сотрудника\" и \"Число проектов\"");
+                                        Organization organization = new Organization();
+                                        organization.EmployeesFromXmlToCollection();
+                                        organization.Employees = organization.SortBySecondNameThenFirstNameThenProjects();
+                                        organization.ShowAllEmployees();
+                                        Console.ReadKey();
+                                        Console.Clear();
                                     }
                                     break;
 
