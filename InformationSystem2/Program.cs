@@ -357,7 +357,7 @@ namespace InformationSystem2
                                     break;
                                 
                                 case 8:
-                                    {
+                                    {   //Сортировка по полю Возраст
                                         Console.Clear();
                                         Console.WriteLine("Сортировка по полю \"Возраст\"");
                                         Organization organization = new Organization();
@@ -370,7 +370,7 @@ namespace InformationSystem2
                                     break;
                                 
                                 case 9:
-                                    {
+                                    {   //Сортировка по полям Фамилия и Зарплата
                                         Console.Clear();
                                         Console.WriteLine("Сортировка по полю \"Фамилия сотрудника\" и \"Заработной плате\"");
                                         Organization organization = new Organization();
@@ -383,7 +383,7 @@ namespace InformationSystem2
                                     break;
 
                                 case 10:
-                                    {
+                                    {   //Сортировка по полям Фамилия, Имя и Количество проектов
                                         Console.Clear();
                                         Console.WriteLine("Сортировка по полю \"Фамилия сотрудника\" и \"Имя сотрудника\" и \"Число проектов\"");
                                         Organization organization = new Organization();
