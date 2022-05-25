@@ -27,26 +27,29 @@ namespace InformationSystem2
             "Сортировка по полю \"Возраст\"",
             "Сортировка по полю \"Фамиля сотрудника\" и \"Заработная плата сотрудника\"",
             "Сортировка по полю \"Фамилия сотрудника\" и \"Имя сотрудника\" и \"Число проектов\"",
+            "Сериализация сотрудников и отделов в json",
+            "Десериализация сотрудников и отделов из json",
+            "Список всех отделов",
+            "Список всех сотрудников",
             "Выход"
         };
 
-        internal int Row { get => row; set => row = value; }
-        internal int Column { get => column; set => column = value; }
+        //Индекс массива заголовков меню
         internal int Index { get => index; set => index = value; }
 
         internal MainMenu()
         {
-            this.Row = Console.CursorTop;
-            this.Column = Console.CursorLeft;
-            this.Index = 0;
+            this.row = Console.CursorTop;
+            this.column = Console.CursorLeft;
+            this.index = 0;
         }
 
         internal void DrawMenu()
         {
-            Console.SetCursorPosition(Column, Row);
+            Console.SetCursorPosition(column, row);
             for (int i = 0; i < menuItems.Length; i++)
             {
-                if (i == Index)
+                if (i == index)
                 {
                     Console.BackgroundColor = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.Black;

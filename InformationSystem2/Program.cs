@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace InformationSystem2
 {
-
     internal class Program
     {
 
@@ -92,10 +93,10 @@ namespace InformationSystem2
                             {
                                 case 0:
                                     {   //Поиск отдела
+                                        Console.Clear();
                                         Console.WriteLine("Поиск отдела");
                                         Organization organization = new Organization();
                                         organization.DepartmentsFromXmlToCollection();
-                                        Console.WriteLine("Поиск отдела");
                                         Console.Write("Название отдела: ");
                                         string departmentName = Console.ReadLine();
                                         Department department = organization.FindDepartment(departmentName);
@@ -114,10 +115,10 @@ namespace InformationSystem2
 
                                 case 1:
                                     {   //Поиск сотрудника
+                                        Console.Clear();
                                         Console.WriteLine("Поиск сотрудника");
                                         Organization organization = new Organization();
                                         organization.EmployeesFromXmlToCollection();
-                                        Console.WriteLine("Поиск сотрудника по фамилии и имени");
                                         Console.Write("Фамилия: ");
                                         string secondName = Console.ReadLine();
                                         Console.Write("Имя: ");
@@ -146,6 +147,7 @@ namespace InformationSystem2
                                 
                                 case 2:
                                     {   //Создание нового отдела
+                                        Console.Clear();
                                         Console.WriteLine("Добавить новый отдел");
                                         Organization organization = new Organization();
                                         organization.DepartmentsFromXmlToCollection();
@@ -173,6 +175,7 @@ namespace InformationSystem2
                                 
                                 case 3:
                                     {   //Добавление нового сотрудника
+                                        Console.Clear();
                                         Console.WriteLine("Добавить нового сотрудника");
                                         Organization organization = new Organization();
 
@@ -219,6 +222,7 @@ namespace InformationSystem2
                                 
                                 case 4:
                                     {
+                                        Console.Clear();
                                         Console.WriteLine("Переименовать отдел");
                                         Organization organization = new Organization();
                                         Console.Write("Введите название отдела, который необходимо переименовать: ");
@@ -242,6 +246,7 @@ namespace InformationSystem2
                                 
                                 case 5:
                                     {
+                                        Console.Clear();
                                         Console.WriteLine("Изменить число проектов сотрудника");
                                         Organization organization = new Organization();
                                         Console.WriteLine("Данные сотрудника");
@@ -290,6 +295,7 @@ namespace InformationSystem2
                                 
                                 case 6:
                                     {
+                                        Console.Clear();
                                         Console.WriteLine("Удалить сотрудника");
                                         Organization organization = new Organization();
                                         //Читаем из xml-файла список всех сотрудников
@@ -344,6 +350,7 @@ namespace InformationSystem2
                                 
                                 case 7:
                                     {
+                                        Console.Clear();
                                         Console.WriteLine("Удалить отдел со всеми сотрудниками");
                                         Organization organization = new Organization();
                                         Console.Write("Введите название отдела, в который хотите удалить: ");
@@ -396,7 +403,92 @@ namespace InformationSystem2
                                     break;
 
                                 case 11:
-                                    Console.WriteLine($"Выбран пункт \"{mainMenu.menuItems[mainMenu.Index]}\"");
+                                    {   //Сериализация сотрудников и отделов в json
+                                        Console.Clear();
+                                        Console.WriteLine("Сериализация сотрудников и отделов в json");
+                                        Organization organization = new Organization();
+                                        
+                                        //Сериализация списка сотрудников в json
+                                        organization.EmployeesFromXmlToCollection();
+                                        string jsonEmployees = JsonConvert.SerializeObject(organization.Employees);
+                                        File.WriteAllText("employees.json", jsonEmployees);
+
+                                        //Сериализация списка отделов в json
+                                        organization.DepartmentsFromXmlToCollection();
+                                        string jsonDepartments = JsonConvert.SerializeObject(organization.Departments);
+                                        File.WriteAllText("departments.json", jsonDepartments);
+                                        
+                                        Console.WriteLine("Данные сериализованы");
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                    }
+                                    break;
+
+                                case 12:
+                                    {   //Десериализация сотрудников и отделов из json
+                                        Console.Clear();
+                                        Console.WriteLine("Десериализация сотрудников и отделов в json");
+                                        Organization organization = new Organization();
+
+                                        //Десериализация списка сотрудников из json
+                                        string jsonEmployees = File.ReadAllText("employees.json");
+                                        organization.Employees = JsonConvert.DeserializeObject<List<Employee>>(jsonEmployees);
+
+                                        //Десериализация списка отделов из json
+                                        string jsonDepartments = File.ReadAllText("departments.json");
+                                        organization.Departments = JsonConvert.DeserializeObject<List<Department>>(jsonDepartments);
+                                        
+                                        Console.WriteLine("Данные десериализованы");
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                    }
+                                    break;
+
+                                case 13:
+                                    {   //Список всех отделов
+                                        Console.Clear();
+                                        Console.WriteLine("Список всех отделов");
+                                        Console.WriteLine();
+
+                                        Organization organization = new Organization();
+                                        organization.DepartmentsFromXmlToCollection();
+                                        foreach(Department department in organization.Departments)
+                                        {
+                                            Console.Write(department);
+                                            Console.WriteLine("====================================================");
+                                            Console.WriteLine();
+                                        }
+
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                    }
+                                    break;
+
+                                case 14:
+                                    {   //Список всех сотрудников
+                                        Console.Clear();
+                                        Console.WriteLine("Список всех сотрудников");
+                                        Console.WriteLine();
+
+                                        Organization organization = new Organization();
+                                        organization.EmployeesFromXmlToCollection();
+                                        foreach (Employee employee in organization.Employees)
+                                        {
+                                            Console.Write(employee);
+                                            Console.WriteLine("====================================================");
+                                            Console.WriteLine();
+                                        }
+
+                                        Console.ReadKey();
+                                        Console.Clear();
+                                    }
+                                break;
+                                
+                                case 15:
+                                    {
+                                        Console.WriteLine($"Выбран пункт \"Выход\"");
+                                        Console.ReadKey();
+                                    }
                                     return;
                             }
                             break;
@@ -662,6 +754,8 @@ namespace InformationSystem2
                 //Console.Clear();
             }
             #endregion
+
+
         }
     }
 }

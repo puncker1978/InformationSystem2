@@ -54,37 +54,37 @@ namespace InformationSystem2
         /// <summary>
         /// Уникальный идентификационный номер сотрудника
         /// </summary>
-        internal Guid Id { get => id; set => id = value; }
+        public Guid Id { get => id; set => id = value; }
 
         /// <summary>
         /// Фамилия сотрудника
         /// </summary>
-        internal string SecondName { get => secondName; set => secondName = value; }
+        public string SecondName { get => secondName; set => secondName = value; }
 
         /// <summary>
         /// Имя сотрудника
         /// </summary>
-        internal string FirstName { get => firstName; set => firstName = value; }
+        public string FirstName { get => firstName; set => firstName = value; }
 
         /// <summary>
         /// Возраст сотрудника
         /// </summary>
-        internal int Age { get => age; set => age = value; }
+        public int Age { get => age; set => age = value; }
 
         /// <summary>
         /// Номер отдела, к которому прикреплён сотрудник
         /// </summary>
-        internal Guid IdDepartment { get => idDepartment; set => idDepartment = value; }
+        public Guid IdDepartment { get => idDepartment; set => idDepartment = value; }
 
         /// <summary>
         /// Количество проектов, закрепленных за сотрудником
         /// </summary>
-        internal int Projects { get => projects; set => projects = value; }
+        public int Projects { get => projects; set => projects = value; }
 
         /// <summary>
         /// Итоговая заработная плата. Расчитывается как произведение количества проектов на ставку заработной платы.
         /// </summary>
-        internal int Total { get => total; set => total = value; }
+        public int Total { get => total; set => total = value; }
         #endregion
 
         #region Конструкторы
@@ -160,13 +160,13 @@ namespace InformationSystem2
         /// <returns>Сотрудник</returns>
         public override string ToString()
         {
-            return $"№ Сотрудника:\t{this.id}\n" +
+            return $"Id Сотрудника:\t{this.id}\n" +
                 $"Фамилия:\t{this.SecondName}\n" +
                 $"Имя:\t{this.FirstName}\n" +
                 $"Возраст:\t{this.Age}\n" +
                 $"Количество проектов:\t{this.Projects}\n" +
                 $"Заработная плата:\t{this.Total}\n" +
-                $"№ Отдела:\t{this.IdDepartment}";
+                $"Id Отдела:\t{this.IdDepartment}\n";
         }
         #endregion
     }

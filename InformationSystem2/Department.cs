@@ -32,22 +32,22 @@ namespace InformationSystem2
         /// <summary>
         /// Уникальный идентификационный номер отдела
         /// </summary>
-        internal Guid Id { get => id; set => id = value; }
+        public Guid Id { get => id; set => id = value; }
 
         /// <summary>
         /// Название отдела
         /// </summary>
-        internal string DepartmentName { get => departmentName; set => departmentName = value; }
+        public string DepartmentName { get => departmentName; set => departmentName = value; }
 
         /// <summary>
         /// Дата создания отдела
         /// </summary>
-        internal DateTime CreationDate { get => creationDate.Date; set => creationDate = value; }
+        public DateTime CreationDate { get => creationDate.Date; set => creationDate = value; }
 
         /// <summary>
         /// Количество сотрудников отдела
         /// </summary>
-        internal int Contingent { get => contingent; set => contingent = value; }
+        public int Contingent { get => contingent; set => contingent = value; }
         #endregion
 
         #region Конструкторы
